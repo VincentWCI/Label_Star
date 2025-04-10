@@ -91,7 +91,7 @@ def return_to_homepage():
 
 def retrieve_star_info_and_update_limited(file_path, limit):
     # Load the Excel file
-    df = pd.read_excel(file_path, sheet_name="Sheet1")
+    df = pd.read_excel(file_path, sheet_name=0)
     star_data = []
 
     # Apply limit only if it's set
@@ -136,6 +136,6 @@ def retrieve_star_info_and_update_limited(file_path, limit):
 
 if __name__ == "__main__":
     # file_path = './Intact_Loss_Report.xlsx'
-    file_path = 'C:/Users/Vincent.Zhong/Documents/GitHub/Label_Star/Wellcare Retail Loss Run- March 2025.xlsx'
+    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Book1.xlsx'
 
     retrieve_star_info_and_update_limited(file_path, limit=None)
