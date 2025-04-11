@@ -136,6 +136,6 @@ def retrieve_star_info_and_update_limited(file_path, limit):
 
 if __name__ == "__main__":
     # file_path = './Intact_Loss_Report.xlsx'
-    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Book1.xlsx'
+    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Book3.xlsx'
 
     retrieve_star_info_and_update_limited(file_path, limit=None)
