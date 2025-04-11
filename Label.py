@@ -130,12 +130,13 @@ def retrieve_star_info_and_update_limited(file_path, limit):
 
     # Save the updated file
     updated_file_path = file_path.replace(".xlsx", "_updated_limited.xlsx")
-    df.to_excel(updated_file_path, index=False, sheet_name="Sheet2")
+    df.to_excel(updated_file_path711638232
+                , index=False, sheet_name="Sheet2")
     print(f"Updated file saved as: {updated_file_path}")
 
 
 if __name__ == "__main__":
     # file_path = './Intact_Loss_Report.xlsx'
-    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Book3.xlsx'
+    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Book10.xlsx'
 
     retrieve_star_info_and_update_limited(file_path, limit=None)
