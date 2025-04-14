@@ -83,6 +83,25 @@ def vehicle_information():
     pyautogui.hotkey('ctrl', 'a')
     pyautogui.hotkey('ctrl', 'c')
 
+def driver_information():
+    driver_x = 
+    driver_y = 
+    pyautogui.click(x = driver_x, y = driver_y)
+    time.sleep(0.5)
+
+    Age_x = 
+    Age_y = 
+    pyautogui.click(x = Age_x, y = Age_y)
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.hotkey('ctrl', 'c')
+    time.sleep(0.3)
+
+    Gender_x = 
+    Gender_y = 
+    pyautogui.click(x = Gender_x, y = Gender_y)
+    pyautogui.hotkey('ctrl', 'a')
+    pyautogui.hotkey('ctrl', 'c')   
+
 def return_to_homepage():
     return_x = 1427
     return_y = 209
