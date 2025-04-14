@@ -84,23 +84,27 @@ def vehicle_information():
     pyautogui.hotkey('ctrl', 'c')
 
 def driver_information():
-    driver_x = 
-    driver_y = 
+    driver_x = 974
+    driver_y = 269
     pyautogui.click(x = driver_x, y = driver_y)
     time.sleep(0.5)
 
-    Age_x = 
-    Age_y = 
+    Age_x = 873
+    Age_y = 370
     pyautogui.click(x = Age_x, y = Age_y)
     pyautogui.hotkey('ctrl', 'a')
     pyautogui.hotkey('ctrl', 'c')
     time.sleep(0.3)
+    Age = pyperclip.paste().strip()
 
-    Gender_x = 
-    Gender_y = 
+    Gender_x = 714
+    Gender_y = 390
     pyautogui.click(x = Gender_x, y = Gender_y)
     pyautogui.hotkey('ctrl', 'a')
     pyautogui.hotkey('ctrl', 'c')   
+    Gender = pyperclip.paste().strip()
+
+    return Age, Gender
 
 def return_to_homepage():
     return_x = 1427
@@ -108,54 +112,105 @@ def return_to_homepage():
     pyautogui.click(x = return_x, y = return_y)
     time.sleep(2.5)
 
+# def retrieve_star_info_and_update_limited(file_path, limit):
+#     # Load the Excel file
+#     df = pd.read_excel(file_path, sheet_name=0)
+#     star_data = []
+
+#     # Apply limit only if it's set
+#     if limit is None:
+#         rows_to_process = df
+#     else:
+#         rows_to_process = df.head(limit)
+
+#     for index, row in rows_to_process.iterrows():
+#         policy_number = row['Policy#']
+
+#         if pd.notna(policy_number):
+#             print(f"Processing Policy: {policy_number}")
+            
+#             # Search and check the policy in Power Broker
+#             result_flag = search_and_check_policy(policy_number)
+
+#             if result_flag == 1:
+#                 double_click_the_policy()
+#                 vehicle_information()
+
+#                 star_info = pyperclip.paste().strip()
+#                 print(f"Star Info for Policy {policy_number}: {star_info}")
+#             else:
+#                 star_info = "Not Found"
+#                 print(f"Policy {policy_number} not found.")
+
+#             star_data.append(star_info)
+#             return_to_homepage()
+#             time.sleep(2)  # Allow UI to reset before next interaction
+#         else:
+#             star_data.append("N/A")
+
+#     # Update only the rows processed
+#     df.loc[:len(rows_to_process) - 1, 'Star'] = star_data
+
+#     # Save the updated file
+#     updated_file_path = file_path.replace(".xlsx", "_updated_limited.xlsx")
+#     df.to_excel(updated_file_path, index=False, sheet_name="info_extracted")
+#     print(f"Updated file saved as: {updated_file_path}")
+
+
 def retrieve_star_info_and_update_limited(file_path, limit):
-    # Load the Excel file
     df = pd.read_excel(file_path, sheet_name=0)
     star_data = []
+    age_data = []
+    gender_data = []
 
-    # Apply limit only if it's set
-    if limit is None:
-        rows_to_process = df
-    else:
-        rows_to_process = df.head(limit)
+    rows_to_process = df if limit is None else df.head(limit)
 
     for index, row in rows_to_process.iterrows():
         policy_number = row['Policy#']
 
         if pd.notna(policy_number):
             print(f"Processing Policy: {policy_number}")
-            
-            # Search and check the policy in Power Broker
+
             result_flag = search_and_check_policy(policy_number)
 
             if result_flag == 1:
                 double_click_the_policy()
                 vehicle_information()
-
                 star_info = pyperclip.paste().strip()
                 print(f"Star Info for Policy {policy_number}: {star_info}")
+
+                # Now get driver information
+                age, gender = driver_information()
+                print(f"Driver Age: {age}, Gender: {gender}")
             else:
                 star_info = "Not Found"
+                age = "N/A"
+                gender = "N/A"
                 print(f"Policy {policy_number} not found.")
 
             star_data.append(star_info)
+            age_data.append(age)
+            gender_data.append(gender)
+
             return_to_homepage()
-            time.sleep(2)  # Allow UI to reset before next interaction
+            time.sleep(2)
         else:
             star_data.append("N/A")
+            age_data.append("N/A")
+            gender_data.append("N/A")
 
-    # Update only the rows processed
+    # Add the new data to the DataFrame
     df.loc[:len(rows_to_process) - 1, 'Star'] = star_data
+    df.loc[:len(rows_to_process) - 1, 'Driver Age'] = age_data
+    df.loc[:len(rows_to_process) - 1, 'Driver Gender'] = gender_data
 
-    # Save the updated file
     updated_file_path = file_path.replace(".xlsx", "_updated_limited.xlsx")
-    df.to_excel(updated_file_path711638232
-                , index=False, sheet_name="Sheet2")
+    df.to_excel(updated_file_path, index=False, sheet_name="info_extracted")
     print(f"Updated file saved as: {updated_file_path}")
 
 
 if __name__ == "__main__":
     # file_path = './Intact_Loss_Report.xlsx'
-    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Book10.xlsx'
+    file_path = r'C:\Users\Vincent.Zhong\Documents\GitHub\Label_Star\Test.xlsx'
 
     retrieve_star_info_and_update_limited(file_path, limit=None)
